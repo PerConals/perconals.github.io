@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: linux | Tom的博客</title>
+  <title>hashcat（wifi暴力破解） | Tom的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="你最孤独">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tom的博客">
-<meta property="og:url" content="http://yoursite.com/tags/linux/index.html">
+  <meta name="description" content="介绍hashcat号称是世界上最快的密码破译工具！由于它的强大，常见的加密方式的密码都能使用hashcat来进行破解，而且速度非常快，快到秒杀常见的破解密码工具（主要还是电脑的配置）。由于最近才接触这么牛的工具，所以在这篇文章主要中介绍下用它来破解wifi握手包。">
+<meta name="keywords" content="信息安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hashcat（wifi暴力破解）">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/hashcat/index.html">
 <meta property="og:site_name" content="Tom的博客">
-<meta property="og:description" content="你最孤独">
+<meta property="og:description" content="介绍hashcat号称是世界上最快的密码破译工具！由于它的强大，常见的加密方式的密码都能使用hashcat来进行破解，而且速度非常快，快到秒杀常见的破解密码工具（主要还是电脑的配置）。由于最近才接触这么牛的工具，所以在这篇文章主要中介绍下用它来破解wifi握手包。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/Z03FxDl.jpg">
+<meta property="og:image" content="https://i.imgur.com/bakCYbp.jpg">
+<meta property="og:image" content="https://i.imgur.com/1K2lKHw.jpg">
+<meta property="og:image" content="https://i.imgur.com/vqbUPXC.jpg">
+<meta property="og:image" content="https://i.imgur.com/1YKbSwr.png">
+<meta property="og:updated_time" content="2019-04-15T15:44:24.904Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tom的博客">
-<meta name="twitter:description" content="你最孤独">
+<meta name="twitter:title" content="hashcat（wifi暴力破解）">
+<meta name="twitter:description" content="介绍hashcat号称是世界上最快的密码破译工具！由于它的强大，常见的加密方式的密码都能使用hashcat来进行破解，而且速度非常快，快到秒杀常见的破解密码工具（主要还是电脑的配置）。由于最近才接触这么牛的工具，所以在这篇文章主要中介绍下用它来破解wifi握手包。">
+<meta name="twitter:image" content="https://i.imgur.com/Z03FxDl.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Tom的博客" type="application/atom+xml">
   
@@ -167,60 +175,242 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hashcat" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/23/Vim/" class="archive-article-date">
-  	<time datetime="2017-12-23T04:58:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/23/Vim/">Vim 编译器之神</a>
+    <h1 class="article-title" itemprop="name">
+      hashcat（wifi暴力破解）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/04/15/hashcat/" class="archive-article-date">
+  	<time datetime="2019-04-15T14:05:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>hashcat号称是世界上最快的密码破译工具！由于它的强大，常见的加密方式的密码都能使用hashcat来进行破解，而且速度非常快，快到秒杀常见的破解密码工具（主要还是电脑的配置）。由于最近才接触这么牛的工具，所以在这篇文章主要中介绍下用它来破解wifi握手包。<br><img src="https://i.imgur.com/Z03FxDl.jpg" alt="hashcat.net"></p>
+<a id="more"></a>
+<p>对于wifi密码破解，用Kali抓到的wifi握手包之后，用Kali自带的aircrack-ng和john真是嫌太慢了！没办法虚拟机上再怎么也比不上本机。直接进正题：<br><img src="https://i.imgur.com/bakCYbp.jpg" alt=""><br>如上图，这些是我抓到附近的wifi握手包，这次用本机来破解。在官网-<a href="https://hashcat.net/hashcat/" target="_blank" rel="noopener">https://hashcat.net/hashcat/</a>下载文件。<br>在windows中不需要安装，直接把从官网下载下来的文件解压到可以找到的位置。<br><img src="https://i.imgur.com/1K2lKHw.jpg" alt=""></p>
+<h2 id="hashcat"><a href="#hashcat" class="headerlink" title="hashcat"></a>hashcat</h2><p>查看hashcat的帮助文档，里面很详细的介绍他的参数、值、哈希模块和特征…这里不介绍太多，因为实在是太多了，介绍常用的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hashcat -h		//linux</span><br><span class="line">hashcat64.exe -h	//windows</span><br></pre></td></tr></table></figure></p>
+<p><strong>Options</strong> //选项参数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">介绍</th>
+<th style="text-align:center">例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-m</td>
+<td style="text-align:center">Num</td>
+<td style="text-align:center">Hash类型</td>
+<td style="text-align:center">-m 1000</td>
+</tr>
+<tr>
+<td style="text-align:center">-a</td>
+<td style="text-align:center">Num</td>
+<td style="text-align:center">攻击模式</td>
+<td style="text-align:center">-a 3</td>
+</tr>
+<tr>
+<td style="text-align:center">-o</td>
+<td style="text-align:center">File</td>
+<td style="text-align:center">为恢复Hash值定义输出文件</td>
+<td style="text-align:center">-o outfile.txt //默认输出到output</td>
+</tr>
+<tr>
+<td style="text-align:center">-D</td>
+<td style="text-align:center">Str</td>
+<td style="text-align:center">选择用CPU还是GPU来破解</td>
+<td style="text-align:center">-D 1 //1默认cpu，2为gpu…</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hash modes</strong> //哈希模式</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">MD5</td>
+<td style="text-align:center">Hash，长度32</td>
+</tr>
+<tr>
+<td style="text-align:center">1700</td>
+<td style="text-align:center">SHA2-512</td>
+<td style="text-align:center">hash</td>
+</tr>
+<tr>
+<td style="text-align:center">1400</td>
+<td style="text-align:center">SHA2-256</td>
+<td style="text-align:center">hash</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">MD5($pass.$salt)</td>
+<td style="text-align:center">密码加盐，密码在前</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">MD%($salt.$pass)</td>
+<td style="text-align:center">盐在前</td>
+</tr>
+<tr>
+<td style="text-align:center">2600</td>
+<td style="text-align:center">MD5(md5($pass))</td>
+<td style="text-align:center">密码进行2次MD5</td>
+</tr>
+<tr>
+<td style="text-align:center">4400</td>
+<td style="text-align:center">MD5(sha1($pass))</td>
+<td style="text-align:center">密码进行一次sha1变换，再进行行一次MD5</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2500</strong></td>
+<td style="text-align:center">WPA-EAPOL-PBKDF2</td>
+<td style="text-align:center">Network Protocols(网络协议)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cap转换成hccap"><a href="#cap转换成hccap" class="headerlink" title="cap转换成hccap"></a>cap转换成hccap</h2><p><strong>注意</strong>：由于hashcat不能像aircrack-ng直接使用<strong>.cap</strong>的文件进行破解，所以需要把<strong>.cap</strong>文件转换为<strong>.hccapx</strong>格式的文件。<br>推荐方法：<br>去官网转换，<a href="https://hashcat.net/cap2hccapx/" target="_blank" rel="noopener">https://hashcat.net/cap2hccapx/</a>如图<br><img src="https://i.imgur.com/vqbUPXC.jpg" alt=""></p>
+<h2 id="开始我们的爆破"><a href="#开始我们的爆破" class="headerlink" title="开始我们的爆破"></a>开始我们的爆破</h2><p>命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hashcat64.exe -m 2500 -D 1 1Anomymous.hccapx rockyou.txt</span><br><span class="line">hashcat64.exe -m 2500 -D 1 1Anomymous.hccapx rockyou.txt rockyou1.txt ...</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.imgur.com/1YKbSwr.png" alt="使用说明"></p>
+<p>接下来，就是等待。说实话，像跑字典这样的累活交给机器，但是没一个好的字典，跑字典跑成个傻子。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">信息安全</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/15/hashcat/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/12/23/Vim/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vim 编译器之神</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -247,9 +437,9 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
